@@ -9,10 +9,12 @@ const { v4: uuidv4 } = require('uuid');
  * POST /api/auth/login
  * =========================
  */
-exports.login = async (req, res) => {
-  const { email, password, tenantSubdomain } = req.body || {};
 
-  if (!email || !password || !tenantSubdomain) {
+
+exports.login = async (req, res) => {
+  const { tenantSubdomain, email, password } = req.body || {};
+
+  if (!tenantSubdomain || !email || !password) {
     return res.status(400).json({
       success: false,
       message: 'Email, password and tenantSubdomain are required'
@@ -110,12 +112,6 @@ exports.login = async (req, res) => {
   }
 };
 
-/**
- * =================================
- * REGISTER TENANT API
- * POST /api/auth/register-tenant
- * =================================
- */
 exports.registerTenant = async (req, res) => {
   const {
     tenantName,
